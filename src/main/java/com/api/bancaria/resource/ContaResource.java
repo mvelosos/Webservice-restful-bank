@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.bancaria.model.Conta;
 import com.api.bancaria.repository.ContaRepo;
-import com.api.bancaria.service.LimiteDiarioService;
+
 
 @RestController
 @RequestMapping("/conta")
@@ -26,39 +26,6 @@ public class ContaResource {
 	@Autowired
 	private ContaRepo contaRepo;
 	
-	@Autowired
-	private LimiteDiarioService limiteDiarioService;
-	
-	public ContaResource() {
-		limiteDiarioService.resetarLimiteDiario();
-	}
-	
-//		private List<Conta> listaContas;
-//		
-//		public ContaResource(){
-//			listaContas = new ArrayList<>();
-//			
-//			Conta c1 = new Conta();
-//			c1.setIdConta(new Long(10));
-//			c1.setIdPessoa(new Pessoa());
-//			c1.setSaldo(new BigDecimal("999999"));
-//			c1.setLimiteSaqueDiario(new BigDecimal("1000"));
-//			c1.setFlagAtivo(true);
-//			c1.setTipoConta(1);
-//			c1.setDataCriacao(new Date("1998/03/07"));
-//			
-//			Conta c2 = new Conta();
-//			c2.setIdConta(new Long(20));
-//			c2.setIdPessoa(new Pessoa());
-//			c2.setSaldo(new BigDecimal("888888"));
-//			c2.setLimiteSaqueDiario(new BigDecimal("1000"));
-//			c2.setFlagAtivo(true);
-//			c2.setTipoConta(1);
-//			c2.setDataCriacao(new Date("1998/10/07"));
-//			
-//			listaContas.add(c1);
-//			listaContas.add(c2);
-//		}
 	
 	@GetMapping("/buscarContas")
 	public ResponseEntity<List<Conta>> buscarContas(){
