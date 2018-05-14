@@ -38,7 +38,7 @@ public class ContaResource {
 	/**
 	 * Método GET com o path "/buscarContas" para buscar todas as contas no banco de dados.
 	 * 
-	 * @return Response<List<Conta>>> - Retorna uma resposta contendo uma lista de Conta
+	 * @return Retorna uma resposta contendo uma lista de Conta
 	 */
 	@GetMapping("/buscarContas")
 	public ResponseEntity<Response<List<Conta>>> buscarContas(){
@@ -51,7 +51,7 @@ public class ContaResource {
 	 * 
 	 * @param conta - Recebe um objeto Conta para que seja salvo no banco de dados.
 	 * @param result - Recebe um BindingResult para tratar as validações e listar os erros, caso ocorra.
-	 * @return Response<Conta> - Retorna uma resposta da inserção da Conta.
+	 * @return Retorna uma resposta da inserção da Conta.
 	 */
 	@PostMapping("/novaConta")
 	public ResponseEntity<Response<Conta>> novaConta(@Valid @RequestBody Conta conta, BindingResult result) {
@@ -68,7 +68,7 @@ public class ContaResource {
 	 * Método GET com path "/buscarContas/{idConta}" para a busca de uma determinada Conta passando o idConta no path.
 	 * 
 	 * @param idConta - Recebe um idConta para que seja feita a busca da conta pelo idConta.
-	 * @return Response<Conta> - Retorna uma resposta contendo uma conta, ou retorna "notFound" caso a conta não exista no banco de dados.
+	 * @return Retorna uma resposta contendo uma conta, ou retorna "notFound" caso a conta não exista no banco de dados.
 	 */
 	@GetMapping("/buscarContas/{idConta}")
 	public ResponseEntity<Response<Conta>> buscarPorId(@PathVariable Long idConta){
@@ -85,7 +85,7 @@ public class ContaResource {
 	 * OBS: Uma conta bloqueada pode ser desbloqueada recebendo o mesmo path de bloqueio.
 	 * 
 	 * @param idConta - Recebe um idConta para que a conta seja buscada e bloqueada.
-	 * @return ResponseEntity<Conta> - Retorna a resposta da requisição.
+	 * @return Retorna a resposta da requisição.
 	 */
 	@PutMapping("/bloquearConta/{idConta}")
 	public ResponseEntity<Conta> bloquearConta(@PathVariable Long idConta){
@@ -107,7 +107,7 @@ public class ContaResource {
 	 * Método GET com path "/saldo/{idConta}" para que seja consultado o saldo de uma conta passando o idConta.
 	 * 
 	 * @param idConta - Recebe um idConta para que a busca da conta seja feita pelo idConta.
-	 * @return ResponseEntity<String> - Retorna uma resposta da requisição contendo uma String com o saldo e informações da Conta.
+	 * @return Retorna uma resposta da requisição contendo uma String com o saldo e informações da Conta.
 	 */
 	@GetMapping("/saldo/{idConta}")
 	public ResponseEntity<String> saldoConta(@PathVariable Long idConta){
