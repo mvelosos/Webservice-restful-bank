@@ -2,11 +2,15 @@ package com.api.bancaria.resource;
 
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.bancaria.model.Conta;
 import com.api.bancaria.repository.ContaRepo;
+import com.api.bancaria.responses.Response;
 
 
 @RestController
@@ -28,25 +33,30 @@ public class ContaResource {
 	
 	
 	@GetMapping("/buscarContas")
-	public ResponseEntity<List<Conta>> buscarContas(){
-		return new ResponseEntity<List<Conta>>(contaRepo.findAll(), HttpStatus.OK);
+	public ResponseEntity<Response<List<Conta>>> buscarContas(){
+
+		return ResponseEntity.ok(new Response<List<Conta>>(contaRepo.findAll())); 
 	}
 	
 	@PostMapping("/novaConta")
-	public ResponseEntity<Conta> novaConta(@RequestBody Conta conta) {
+	public ResponseEntity<Response<Conta>> novaConta(@Valid @RequestBody Conta conta, BindingResult result) {
+		if(result.hasErrors()) {
+			List<String> erros = new ArrayList<String>();
+			result.getAllErrors().forEach(erro -> erros.add(erro.getDefaultMessage()));
+			return ResponseEntity.badRequest().body(new Response<Conta>(erros));
+		}
 		contaRepo.save(conta);
-		
-		return new ResponseEntity<Conta>(conta, HttpStatus.CREATED);
+		return ResponseEntity.ok(new Response<Conta>(conta));
 	}
 	
 	@GetMapping("/buscarContas/{idConta}")
-	public ResponseEntity<?> buscarPorId(@PathVariable Long idConta){
+	public ResponseEntity<Response<?>> buscarPorId(@PathVariable Long idConta){
 		Conta conta = contaRepo.findOne(idConta);
 		if(conta == null) {
 			return ResponseEntity.notFound().build();
 		}
 		
-		return ResponseEntity.status(HttpStatus.OK).body(conta);
+		return ResponseEntity.ok(new Response<Conta>(contaRepo.findOne(idConta))); 
 	}
 	
 	@PutMapping("/bloquearConta/{idConta}")

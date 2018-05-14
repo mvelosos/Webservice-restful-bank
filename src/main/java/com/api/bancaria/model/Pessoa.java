@@ -10,7 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.br.CPF;
 
 
 @Entity
@@ -21,10 +22,11 @@ public class Pessoa {
 	@Column(name = "idpessoa")
 	private Long idPessoa;
 	
-	@NotBlank
+	@NotEmpty(message = "O campo nome não pode ser vazio")
 	private String nome;
 	
-	@NotBlank
+	@NotEmpty(message = "O campo CPF deve ser preenchido")
+	@CPF(message = "CPF inválido")
 	private String cpf;
 	
 	@Temporal(TemporalType.DATE)
@@ -39,7 +41,7 @@ public class Pessoa {
 	public void setIdPessoa(Long idPessoa) {
 		this.idPessoa = idPessoa;
 	}
-
+	
 	public String getNome() {
 		return nome;
 	}

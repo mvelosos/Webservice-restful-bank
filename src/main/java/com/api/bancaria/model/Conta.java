@@ -14,6 +14,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+
+import com.api.componentes.JsonDateSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 @Entity
 public class Conta {
 	
@@ -42,8 +48,9 @@ public class Conta {
 	private Integer tipoConta;
 	
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "datacriacao")
+	@Generated(GenerationTime.INSERT)
 	private Date dataCriacao;
 
 	public Long getIdConta() {
@@ -93,7 +100,8 @@ public class Conta {
 	public void setTipoConta(Integer tipoConta) {
 		this.tipoConta = tipoConta;
 	}
-
+	
+	@JsonSerialize(using=JsonDateSerializer.class)
 	public Date getDataCriacao() {
 		return dataCriacao;
 	}

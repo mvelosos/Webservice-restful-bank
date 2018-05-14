@@ -36,9 +36,7 @@ public class LimiteDiarioService {
 				
 				@Override
 				public void run() {
-					System.out.println("rodou lindo!");
 					System.out.println(c.getTime().toString());
-					System.out.println(contaRepo.findOne(new Long(1)));
 					List<Conta> contas = contaRepo.findAll();
 					System.out.println(contas);
 					for (Conta conta : contas) {

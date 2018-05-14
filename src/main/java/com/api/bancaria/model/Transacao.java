@@ -13,6 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+
+import com.api.componentes.JsonDateSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 @Entity
 public class Transacao {
 	
@@ -29,6 +35,7 @@ public class Transacao {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "datatransacao")
+	@Generated(GenerationTime.INSERT)
 	private Date dataTransacao;
 
 	public Long getIdTransacao() {
@@ -54,7 +61,8 @@ public class Transacao {
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
-
+	
+	@JsonSerialize(using=JsonDateSerializer.class)
 	public Date getDataTransacao() {
 		return dataTransacao;
 	}
