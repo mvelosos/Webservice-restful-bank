@@ -19,6 +19,12 @@ import org.hibernate.annotations.GenerationTime;
 import com.api.componentes.JsonDateSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+/**
+ * Classe Transacao, mapeada como entidade Transacao com seus respectivos atributos.
+ * 
+ * @author mateusveloso
+ *
+ */
 @Entity
 public class Transacao {
 	

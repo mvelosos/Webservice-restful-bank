@@ -19,6 +19,12 @@ import com.api.bancaria.model.Pessoa;
 import com.api.bancaria.repository.PessoaRepo;
 import com.api.bancaria.responses.Response;
 
+/**
+ * Classe controller de Pessoa, contendo o path "/pessoa" das requisições e os métodos para as operações.
+ * 
+ * @author mateusveloso
+ *
+ */
 @RestController
 @RequestMapping("/pessoa")
 public class PessoaResource {
@@ -26,6 +32,13 @@ public class PessoaResource {
 	@Autowired
 	private PessoaRepo pessoaRepo; 
 	
+	/**
+	 * Método POST com o path "/novaPessoa" para a criação de uma nova Pessoa no banco de dados.
+	 * 
+	 * @param pessoa - Recebe um objeto Pessoa para que seja salvo no banco de dados.
+	 * @param result - Recebe um BindingResult para tratar as validações e listar os erros, caso ocorra.
+	 * @return Response<Pessoa> - Retorna uma resposta da inserção da Pessoa.
+	 */
 	@PostMapping("/novaPessoa")
 	public ResponseEntity<Response<Pessoa>> novaPessoa(@Valid @RequestBody Pessoa pessoa, BindingResult result){
 		if(result.hasErrors()) {
@@ -36,12 +49,23 @@ public class PessoaResource {
 		return ResponseEntity.ok(new Response<Pessoa>(pessoaRepo.save(pessoa)));
 	}
 	
+	/**
+	 * Método GET com o path "/buscarPessoas" para buscar todas as pessoas no banco de dados.
+	 * 
+	 * @return Response<List<Pessoa>>> - Retorna uma resposta contendo uma lista de Pessoa.
+	 */
 	@GetMapping("/buscarPessoas")
 	public ResponseEntity<Response<List<Pessoa>>> buscarPessoa(){
 		
 		return ResponseEntity.ok(new Response<List<Pessoa>>(pessoaRepo.findAll())); 
 	}
 	
+	/**
+	 * Método GET com path "/buscarPessoas/{idPessoa}" para a busca de uma determinada Pessoa passando o idPessoa no path.
+	 * 
+	 * @param idPessoa - Recebe um idPessoa para que seja feita a busca da pessoa pelo idPessoa.
+	 * @return Response<Pessoa> - Retorna uma resposta contendo uma pessoa, ou retorna "notFound" caso a pessoa não exista no banco de dados.
+	 */
 	@GetMapping("/buscarPessoas/{idPessoa}")
 	public ResponseEntity<Response<?>> buscarPorId(@PathVariable Long idPessoa){
 		Pessoa pessoa = pessoaRepo.findOne(idPessoa);

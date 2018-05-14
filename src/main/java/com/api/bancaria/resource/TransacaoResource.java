@@ -21,6 +21,12 @@ import com.api.bancaria.repository.ContaRepo;
 import com.api.bancaria.repository.TransacaoRepo;
 import com.api.bancaria.responses.Response;
 
+/**
+ * Classe controller de Transacao, contendo o path "/transacao" das requisições e os métodos para as operações.
+ * 
+ * @author mateusveloso
+ *
+ */
 @RestController
 @RequestMapping("/transacao")
 public class TransacaoResource {
@@ -31,13 +37,24 @@ public class TransacaoResource {
 	@Autowired
 	private ContaRepo contaRepo;
 	
-	
+	/**
+	 * Método GET com o path "/buscarTransacoes" para buscar todas as transacoes no banco de dados.
+	 * 
+	 * @return Response<List<Transacao>>> - Retorna uma resposta contendo uma lista de todas as transacoes.
+	 */
 	@GetMapping("/buscarTransacoes")
 	public ResponseEntity<Response<List<Transacao>>> buscarTransacoes(){
-		//return new ResponseEntity<List<Transacao>>(transacaoRepo.findAll(), HttpStatus.OK);
+		
 		return ResponseEntity.ok(new Response<List<Transacao>>(transacaoRepo.findAll()));
 	}
 	
+	/**
+	 * Método POST com path "/depositar" para fazer um depósito em uma conta
+	 * O depósito só será realizado se a conta não esitver bloqueada e o valor do depósito for maior que 0.
+	 * 
+	 * @param transacao - Recebe uma Transacao como parâmetro, a transação contém informações para que a operação seja realizada.
+	 * @return ResponseEntity<Transacao> - Retorna uma resposta dizendo se a operação foi realizada.
+	 */
 	@PostMapping("/depositar")
 	public ResponseEntity<Transacao> depositar(@Valid @RequestBody Transacao transacao){
 		
@@ -54,6 +71,14 @@ public class TransacaoResource {
 		return ResponseEntity.badRequest().build();
 	}
 	
+	/**
+	 * Método POST com path "/sacar" para fazer um saque em uma conta em uma conta.
+	 * O saque só será realizado se a conta não estiver bloqueada, se o valor a ser sacado for menor ou igual ao limite
+	 * disponivel do dia e se o valor a ser sacado for menor ou igual ao saldo disponível na conta.
+	 * 
+	 * @param transacao - Recebe uma Transacao como parâmetro, a transação contém informações para que a operação seja realizada.
+	 * @return ResponseEntity<Transacao> - Retorna uma resposta dizendo se a operação foi realizada.
+	 */
 	@PostMapping("/sacar")
 	public ResponseEntity<Transacao> sacar(@Valid @RequestBody Transacao transacao){
 		System.out.println(transacao.getIdConta().getIdConta());
@@ -71,6 +96,13 @@ public class TransacaoResource {
 		return ResponseEntity.badRequest().build();
 	}
 	
+	/**
+	 * Método GET com path "/extrato/{idConta}" que mostra o extrato de transacoes de uma determinada conta
+	 * ao ser passado um idConta no path.
+	 * 
+	 * @param idConta - Recebe um idConta para que seja listada todas as transações de uma conta.
+	 * @return ResponseEntity<List<Transacao>> - Retorna uma resposta contendo uma lista de transações.
+	 */
 	@GetMapping("/extrato/{idConta}")
 	public ResponseEntity<Response<List<Transacao>>> extrato(@PathVariable Conta idConta){
 	

@@ -13,7 +13,12 @@ import javax.persistence.TemporalType;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CPF;
 
-
+/**
+ * Classe Pessoa, mapeada como entidade Pessoa com seus respectivos atributos.
+ * 
+ * @author mateusveloso
+ *
+ */
 @Entity
 public class Pessoa {
 	

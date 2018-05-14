@@ -2,6 +2,13 @@ package com.api.bancaria.responses;
 
 import java.util.List;
 
+/**
+ * Classe que provê uma resposta, que pode ser um dado genérico ou uma lista de String que representam os erros.
+ * 
+ * @author mateusveloso
+ *
+ * @param <T> - Essa é uma classe Genérica.
+ */
 public class Response<T> {
 	
 	private T dados;
@@ -30,7 +37,6 @@ public class Response<T> {
 	public void setErros(List<String> erros) {
 		this.erros = erros;
 	}
-	
 	
 
 }

@@ -20,6 +20,12 @@ import org.hibernate.annotations.GenerationTime;
 import com.api.componentes.JsonDateSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+/**
+ * Classe conta, mapeada como entidade Conta com seus respectivos atributos.
+ * 
+ * @author mateusveloso
+ *
+ */
 @Entity
 public class Conta {
 	

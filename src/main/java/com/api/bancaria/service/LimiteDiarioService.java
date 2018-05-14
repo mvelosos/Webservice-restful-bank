@@ -15,12 +15,24 @@ import org.springframework.stereotype.Service;
 import com.api.bancaria.model.Conta;
 import com.api.bancaria.repository.ContaRepo;
 
+/**
+ * Essa classe contém um listener que é iniciado assim que a aplicação iniciar. O objetivo da classe é verificar a hora do dia
+ * para que o limiteSaqueDiario das contas possa ser resetado, sendos assim possível realizar um saque no dia seguinte.
+ * O limiteSaqueDiario é resetado as 23:59:59 todos os dias.
+ * 
+ * @author mateusveloso
+ *
+ */
 @Service
 public class LimiteDiarioService {
 	
 	@Autowired
 	private ContaRepo contaRepo;
 	
+	/**
+	 * Método que contém a anotação para iniciar o listener assim que a aplicação for iniciada.
+	 * 
+	 */
 	@EventListener(ApplicationReadyEvent.class)
 	public void resetarLimiteDiario() {
 			
@@ -34,6 +46,11 @@ public class LimiteDiarioService {
 	        Timer t = new Timer();
 	        t.schedule(new TimerTask() {
 				
+	        	/**
+	        	 * Método que realiza uma operação em uma determinada data e em um determinado intervalo de tempo.
+	        	 * 86400000 milissegundos == 24 horas.
+	        	 * 
+	        	 */
 				@Override
 				public void run() {
 					System.out.println(c.getTime().toString());
