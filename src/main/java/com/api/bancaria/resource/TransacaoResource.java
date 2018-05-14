@@ -28,6 +28,7 @@ public class TransacaoResource {
 	@Autowired
 	private ContaRepo contaRepo;
 	
+	
 	@GetMapping("/buscarTransacoes")
 	public ResponseEntity<List<Transacao>> buscarTransacoes(){
 		return new ResponseEntity<List<Transacao>>(transacaoRepo.findAll(), HttpStatus.OK);
@@ -51,9 +52,9 @@ public class TransacaoResource {
 	
 	@PostMapping("/sacar")
 	public ResponseEntity<Transacao> sacar(@RequestBody Transacao transacao){
-		
+		System.out.println(transacao.getIdConta().getIdConta());
 		Conta conta = contaRepo.findOne(transacao.getIdConta().getIdConta());
-		if((conta.getFlagAtivo() == true) && (transacao.getValor().compareTo(conta.getLimiteSaqueDiario()) <= 0) 
+		if((conta.getFlagAtivo() == true) && (transacao.getValor().compareTo(conta.getLimiteSaqueDiario()) <= 0)
 				&& (transacao.getValor().compareTo(conta.getSaldo()) <= 0)) {
 			BigDecimal novoLimite = conta.getLimiteSaqueDiario().subtract(transacao.getValor());
 			conta.setLimiteSaqueDiario(novoLimite);
@@ -63,7 +64,7 @@ public class TransacaoResource {
 			
 			return new ResponseEntity<Transacao>(transacaoRepo.save(transacao), HttpStatus.CREATED);
 		}
-		return null;
+		return ResponseEntity.badRequest().build();
 	}
 	
 	@GetMapping("/extrato/{idConta}")

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.bancaria.model.Conta;
 import com.api.bancaria.repository.ContaRepo;
+import com.api.bancaria.service.LimiteDiarioService;
 
 @RestController
 @RequestMapping("/conta")
@@ -24,6 +25,13 @@ public class ContaResource {
 	
 	@Autowired
 	private ContaRepo contaRepo;
+	
+	@Autowired
+	private LimiteDiarioService limiteDiarioService;
+	
+	public ContaResource() {
+		limiteDiarioService.resetarLimiteDiario();
+	}
 	
 //		private List<Conta> listaContas;
 //		
