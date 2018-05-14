@@ -1,4 +1,4 @@
-package com.api.componentes;
+package com.api.bancaria.componentes;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;

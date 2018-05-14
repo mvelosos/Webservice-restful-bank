@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
-import com.api.componentes.JsonDateSerializer;
+import com.api.bancaria.componentes.JsonDateSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
